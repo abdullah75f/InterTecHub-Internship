@@ -24,7 +24,7 @@ Run the Server
 bash
 Copy code
 
-Endpoints
+# Endpoints
 1- https://web-server-wheat-seven.vercel.app/
 It gives access to the home page.
 
