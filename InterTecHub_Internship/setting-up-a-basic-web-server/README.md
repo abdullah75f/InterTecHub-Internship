@@ -23,6 +23,14 @@ npm install
 Run the Server
 bash
 Copy code
+
+# End-Points
+1- https://web-server-wheat-seven.vercel.app/  it give access to home page
+2- https://web-server-wheat-seven.vercel.app/name  it give access to name page
+3- https://web-server-wheat-seven.vercel.app/dream  it give access to dream page
+4- https://web-server-wheat-seven.vercel.app/hobby  it give access to hobby page
+
+
 # development
 npm run start
 
