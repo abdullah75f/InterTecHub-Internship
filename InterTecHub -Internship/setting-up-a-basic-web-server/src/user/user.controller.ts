@@ -9,9 +9,13 @@ export class UserController {
     return this.userService.getName();
   }
 
-  @Get('/dream')
-  getHobby() {}
+  @Get('/hobby')
+  getHobby(): { Hobby: string } {
+    return this.userService.getHobby();
+  }
 
   @Get('/dream')
-  getDream() {}
+  getDream() {
+    return this.userService.getDream();
+  }
 }

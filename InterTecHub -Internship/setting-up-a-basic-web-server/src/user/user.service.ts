@@ -8,5 +8,9 @@ export class userService {
 
   getDream() {}
 
-  getHobby() {}
+  getHobby(): { Hobby: string } {
+    return {
+      Hobby: 'Watching and playing Football',
+    };
+  }
 }
