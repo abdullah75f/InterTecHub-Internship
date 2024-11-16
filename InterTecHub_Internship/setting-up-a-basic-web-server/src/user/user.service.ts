@@ -2,6 +2,10 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class userService {
+  getHome(): string {
+    return 'Welcome to my home Page';
+  }
+
   getName(): string {
     return 'Abdullah Farid';
   }
