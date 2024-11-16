@@ -6,7 +6,9 @@ export class userService {
     return 'Abdullah Farid';
   }
 
-  getDream() {}
+  getDream(): string {
+    return 'I want to become a backend heavy web developer ';
+  }
 
   getHobby(): { Hobby: string } {
     return {

@@ -15,7 +15,7 @@ export class UserController {
   }
 
   @Get('/dream')
-  getDream() {
+  getDream(): string {
     return this.userService.getDream();
   }
 }
