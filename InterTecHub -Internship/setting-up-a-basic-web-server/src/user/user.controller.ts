@@ -1,13 +1,13 @@
 import { Controller, Get } from '@nestjs/common';
 
-@Controller('user')
+@Controller()
 export class UserController {
   @Get('/name')
   getName() {}
 
-  @Get()
+  @Get('/dream')
   getHobby() {}
 
-  @Get()
+  @Get('/dream')
   getDream() {}
 }
