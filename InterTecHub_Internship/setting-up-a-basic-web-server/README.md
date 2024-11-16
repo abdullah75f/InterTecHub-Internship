@@ -24,22 +24,30 @@ Run the Server
 bash
 Copy code
 
-# End-Points
-1- https://web-server-wheat-seven.vercel.app/  it give access to home page
-2- https://web-server-wheat-seven.vercel.app/name  it give access to name page
-3- https://web-server-wheat-seven.vercel.app/dream  it give access to dream page
-4- https://web-server-wheat-seven.vercel.app/hobby  it give access to hobby page
+Endpoints
+1- https://web-server-wheat-seven.vercel.app/
+It gives access to the home page.
 
+2- https://web-server-wheat-seven.vercel.app/name
+It gives access to the name page.
+
+3- https://web-server-wheat-seven.vercel.app/dream
+It gives access to the dream page.
+
+4- https://web-server-wheat-seven.vercel.app/hobby
+It gives access to the hobby page.
 
 # development
+
 npm run start
 
 # watch mode
+
 npm run start:dev
 
 # production mode
+
 npm run start:prod
 Access Locally
 Once the server is running, access it at:
 http://localhost:3000
-
