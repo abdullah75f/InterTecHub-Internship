@@ -4,11 +4,16 @@ import { Book } from './books.entity';
 import { Repository } from 'typeorm';
 import { CreateBookDto } from './create-books.dto';
 import { UpdateBooksDto } from './update-books.dto';
+import { CreateReviewsDto } from 'src/reviews/create-reviews.dto';
+import { Review } from 'src/reviews/review.entity';
+import { User } from 'src/users/user.entity';
 
 @Injectable()
 export class BooksService {
   constructor(
     @InjectRepository(Book) private readonly bookRepo: Repository<Book>,
+    @InjectRepository(Review) private readonly reviewRepo: Repository<Review>,
+    @InjectRepository(User) private readonly userRepo: Repository<User>,
   ) {}
 
   CreateBook(bookDto: CreateBookDto) {
@@ -34,5 +39,5 @@ export class BooksService {
     return await this.bookRepo.delete(bookId);
   }
 
-  CreateReview() {}
+  async CreateReview(bookId: number, reviews: CreateReviewsDto) {}
 }

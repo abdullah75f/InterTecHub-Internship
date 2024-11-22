@@ -10,6 +10,7 @@ import {
 import { BooksService } from './books.service';
 import { CreateBookDto } from './create-books.dto';
 import { UpdateBooksDto } from './update-books.dto';
+import { CreateReviewsDto } from 'src/reviews/create-reviews.dto';
 
 @Controller('books')
 export class BooksController {
@@ -41,7 +42,10 @@ export class BooksController {
   }
 
   @Post('/:bookId/reviews')
-  CreateReview(@Param('bookId') bookId: string) {
-    return this.booksService.CreateReview();
+  CreateReview(
+    @Param('bookId') bookId: string,
+    @Body() body: CreateReviewsDto,
+  ) {
+    return this.booksService.CreateReview(parseInt(bookId), body);
   }
 }
