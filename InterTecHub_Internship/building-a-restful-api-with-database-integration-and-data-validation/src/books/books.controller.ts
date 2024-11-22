@@ -28,7 +28,7 @@ export class BooksController {
 
     @Delete(':bookId')
     DeleteBooks () =>{
-        return this.BooksService
+        return this.BooksService.DeleteBooks()
 
     }
 
