@@ -37,7 +37,7 @@ export class BooksController {
 
   @Delete('/:bookId')
   DeleteBook(@Param('bookId') bookId: string) {
-    return this.booksService.DeleteBook();
+    return this.booksService.DeleteBook(parseInt(bookId));
   }
 
   @Post('/:bookId/reviews')

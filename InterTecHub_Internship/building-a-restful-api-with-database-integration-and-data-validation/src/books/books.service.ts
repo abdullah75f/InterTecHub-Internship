@@ -30,7 +30,9 @@ export class BooksService {
     return this.bookRepo.save(book);
   }
 
-  DeleteBook() {}
+  async DeleteBook(bookId: number) {
+    return await this.bookRepo.delete(bookId);
+  }
 
   CreateReview() {}
 }
