@@ -1,8 +1,3 @@
-documentation from the example you provided. Here's a revised version that is minimal, focused on the core details, and styled cleanly:
-
-markdown
-Copy code
-
 <p align="center">
   <a href="http://nestjs.com/" target="blank">
     <img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" />
@@ -13,12 +8,6 @@ Copy code
 
 <p align="center">
   A progressive Node.js framework for building efficient, scalable, and maintainable backend applications.
-</p>
-
-<p align="center">
-  <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-  <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="License" /></a>
-  <a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord" /></a>
 </p>
 
 ## Features
