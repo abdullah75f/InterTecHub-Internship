@@ -1,13 +1,13 @@
-import { IsString, IsInt, Min, Max } from 'class-validator';
+import { IsString, IsInt, Min, Max, Matches } from 'class-validator';
 
 export class CreateBookDto {
   @IsString()
   title: string;
 
-  @IsInt()
-  @Min(1000000000000)
-  @Max(9999999999999)
-  isbn: number;
+  @Matches(/^\d{10}(\d{3})?$/, {
+    message: 'ISBN must be either 10 or 13 digits.',
+  })
+  isbn: string;
 
   @IsString()
   author: string;

@@ -1,41 +1,38 @@
-import { Controller, Delete, Get, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, Put } from '@nestjs/common';
 import { BooksService } from './books.service';
+import { CreateBookDto } from './create-books.dto';
 
 @Controller('books')
 export class BooksController {
+  constructor(private booksService: BooksService) {}
 
-    //for books
-    @Post()
-    CreateBook()=>{
-        return this.BooksService.CreateBook()
-    }
+  @Post()
+  CreateBook(@Body() body: CreateBookDto) {
+    return this.booksService.CreateBook(body);
+  }
 
-    @Get()
-    GetAllBooks()=>{
-        return this.BooksService.GetAllBooks
-    }
+  @Get()
+  GetAllBooks() {
+    return this.booksService.GetAllBooks;
+  }
 
-    // for specific book
-    @Get(':bookId')
-    GetSingleBook ()=>{
-        return this.BooksService.GetSingleBook()
-    }
+  @Get(':bookId')
+  GetSingleBook() {
+    return this.booksService.GetSingleBook();
+  }
 
-    @Put(':bookId')
-    UpdateBooks ()=>{
-        return this.BooksService.UpdateBooks()
-    }
+  @Put(':bookId')
+  UpdateBook() {
+    return this.booksService.UpdateBook();
+  }
 
-    @Delete(':bookId')
-    DeleteBooks () =>{
-        return this.BooksService.DeleteBooks()
+  @Delete(':bookId')
+  DeleteBook() {
+    return this.booksService.DeleteBook();
+  }
 
-    }
-
-    // my custom endpoint
-    @Post(':bookId/reviews')
-    CreateReviews () =>{
-        return this.BooksService.CreateReviews()
-
-    }
+  @Post(':bookId/reviews')
+  CreateReview() {
+    return this.booksService.CreateReview();
+  }
 }
