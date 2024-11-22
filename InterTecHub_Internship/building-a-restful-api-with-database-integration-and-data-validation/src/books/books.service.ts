@@ -11,7 +11,7 @@ export class BooksService {
   ) {}
 
   CreateBook(bookDto: CreateBookDto) {
-    const book = this.bookRepo.create();
+    const book = this.bookRepo.create(bookDto);
     return this.bookRepo.save(book);
   }
 

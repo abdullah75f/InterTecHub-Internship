@@ -10,7 +10,7 @@ export class Book {
   title: string;
 
   @Column()
-  isbn: number;
+  isbn: string;
 
   @Column()
   author: string;
