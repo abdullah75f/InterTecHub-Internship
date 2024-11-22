@@ -22,11 +22,10 @@ export class BooksService {
 
   GetSingleBook() {}
 
-  async UpdateBook(bookId, updateBooks: UpdateBooksDto) {
-    const book = await this.bookRepo.findOne(bookId);
+  async UpdateBook(bookId: number, updateBooks: UpdateBooksDto) {
+    const book = await this.bookRepo.findOne({ where: { id: bookId } });
     Object.assign(book, updateBooks);
     return this.bookRepo.save(book);
- 
   }
 
   DeleteBook() {}
