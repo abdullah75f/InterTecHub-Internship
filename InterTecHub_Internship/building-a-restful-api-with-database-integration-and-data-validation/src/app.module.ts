@@ -5,6 +5,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { BooksModule } from './books/books.module';
+import { Review } from './reviews/review.entitiy';
+import { Book } from './books/books.entity';
+import { User } from './users/user.entity';
+import { ReviewsModule } from './reviews/reviews.module';
 
 @Module({
   imports: [
@@ -16,11 +20,13 @@ import { BooksModule } from './books/books.module';
         url: configService.get<string>('DATABASE_URL'),
         ssl: { rejectUnauthorized: false },
         autLoadEntities: true,
+        entities: [User, Book, Review],
         synchronize: true,
       }),
     }),
     UsersModule,
     BooksModule,
+    ReviewsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

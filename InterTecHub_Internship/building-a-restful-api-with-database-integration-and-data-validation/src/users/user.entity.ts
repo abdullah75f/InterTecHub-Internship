@@ -1,5 +1,6 @@
 import { timeStamp } from 'console';
-import { Column, Entity } from 'typeorm';
+import { Review } from 'src/reviews/review.entitiy';
+import { Column, Entity, OneToMany } from 'typeorm';
 
 @Entity('users')
 export class User {
@@ -10,4 +11,7 @@ export class User {
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
+
+  @OneToMany(() => Review, (review) => review.user)
+  reviews: Review[];
 }
