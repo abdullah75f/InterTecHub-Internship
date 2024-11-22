@@ -1,99 +1,195 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Building a RESTful API with NestJS and PostgreSQL
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+This project demonstrates how to build a RESTful API using **NestJS**, **TypeORM**, and **PostgreSQL** to manage books, reviews, and users. It provides endpoints to perform CRUD operations on books, associate reviews with books, and manage users.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Features
 
-## Description
+- **CRUD Operations** for Books
+- **User Management** for adding authors and reviewers
+- **Review System** to add ratings and comments for books
+- **TypeORM** as the ORM for database interaction with PostgreSQL
+- **Data Validation** using DTOs and class-validator
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Technologies Used
 
-## Project setup
+- **NestJS**: A progressive Node.js framework for building efficient and scalable applications.
+- **TypeORM**: An ORM for TypeScript and JavaScript (ES7, ES6, ES5).
+- **PostgreSQL**: A powerful, open-source relational database system.
+- **class-validator**: Validation library for TypeScript and JavaScript.
+- **class-transformer**: A library to transform plain objects into class objects.
 
-```bash
-$ npm install
-```
+## Setup
 
-## Compile and run the project
+### Prerequisites
 
-```bash
-# development
-$ npm run start
+- Node.js >= 14
+- PostgreSQL database
 
-# watch mode
-$ npm run start:dev
+### Installation
 
-# production mode
-$ npm run start:prod
-```
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/project-name.git
+   cd project-name
+   Install dependencies:
+   ```
 
-## Run tests
+bash
+Copy code
+npm install
+Set up your environment variables in a .env file: Create a .env file in the root directory and add your PostgreSQL credentials:
 
-```bash
-# unit tests
-$ npm run test
+env
+Copy code
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=your-username
+DB_PASSWORD=your-password
+DB_NAME=your-database-name
+Run migrations to set up the database:
 
-# e2e tests
-$ npm run test:e2e
+bash
+Copy code
+npm run migration:run
+Start the application:
 
-# test coverage
-$ npm run test:cov
-```
+bash
+Copy code
+npm run start:dev
+The API should now be running on http://localhost:3000.
 
-## Deployment
+API Endpoints
+Books
+Get all books: GET /books
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+Fetches all books from the database.
+Get a single book: GET /books/:id
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+Fetches a single book by its id.
+Create a new book: POST /books
 
-```bash
-$ npm install -g mau
-$ mau deploy
-```
+Body:
+json
+Copy code
+{
+"title": "Book Title",
+"author": "Author Name",
+"publishedYear": 2024,
+"genre": "Fiction"
+}
+Update an existing book: PUT /books/:id
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+Body:
+json
+Copy code
+{
+"title": "Updated Book Title",
+"author": "Updated Author Name",
+"publishedYear": 2025,
+"genre": "Non-Fiction"
+}
+Delete a book: DELETE /books/:id
 
-## Resources
+Deletes a book from the database.
+Reviews
+Get all reviews for a book: GET /books/:id/reviews
 
-Check out a few resources that may come in handy when working with NestJS:
+Fetches all reviews associated with a book.
+Create a new review: POST /books/:id/reviews
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+Body:
+json
+Copy code
+{
+"rating": 5,
+"comment": "Amazing book!",
+"userId": 1
+}
+Update a review: PUT /reviews/:id
 
-## Support
+Body:
+json
+Copy code
+{
+"rating": 4,
+"comment": "Good book, but could be improved."
+}
+Delete a review: DELETE /reviews/:id
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Deletes a review from the database.
+Users
+Get all users: GET /users
 
-## Stay in touch
+Fetches all users.
+Create a new user: POST /users
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Body:
+json
+Copy code
+{
+"name": "John Doe",
+"email": "john@example.com"
+}
+Update an existing user: PUT /users/:id
 
-## License
+Body:
+json
+Copy code
+{
+"name": "Updated Name",
+"email": "updated-email@example.com"
+}
+Delete a user: DELETE /users/:id
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Deletes a user from the database.
+Project Structure
+src
+books: Contains all logic related to books and reviews.
+books.controller.ts: Handles HTTP requests related to books.
+books.service.ts: Contains business logic for books and reviews.
+books.repository.ts: Interacts with the database for book operations.
+users: Contains logic for user management.
+users.controller.ts: Handles user-related HTTP requests.
+users.service.ts: Contains business logic for users.
+users.repository.ts: Handles database operations related to users.
+reviews: Manages review operations.
+reviews.controller.ts: Handles review-related HTTP requests.
+reviews.service.ts: Contains business logic for reviews.
+reviews.repository.ts: Interacts with the database for reviews.
+common: Contains shared utilities and configurations like DTOs.
+Database Schema
+Books
+id (Primary Key)
+title (String)
+author (String)
+publishedYear (Integer)
+genre (String)
+Users
+id (Primary Key)
+name (String)
+email (String, unique)
+Reviews
+id (Primary Key)
+rating (Integer)
+comment (Text)
+bookId (Foreign Key to Books)
+userId (Foreign Key to Users)
+Migrations
+Create Book Table: This migration creates the books table with the necessary fields.
+Create User Table: This migration creates the users table with name and email.
+Create Review Table: This migration creates the reviews table with rating, comment, and foreign keys to the books and users tables.
+License
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+markdown
+Copy code
+
+### Key Sections:
+
+1. **Setup**: Clear installation and setup instructions.
+2. **API Endpoints**: Provides detailed information about each available endpoint.
+3. **Project Structure**: Explanation of the folder structure, controllers, services, and repositories.
+4. **Database Schema**: Describes the database tables and their relations.
+5. **Migrations**: Provides a summary of migrations executed in the project.
+
+Feel free to customize and expand based on your actual setup and features.
