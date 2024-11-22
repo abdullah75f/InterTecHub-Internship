@@ -5,7 +5,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { BooksModule } from './books/books.module';
-import { Review } from './reviews/review.entitiy';
+import { Review } from './reviews/review.entity';
 import { Book } from './books/books.entity';
 import { User } from './users/user.entity';
 import { ReviewsModule } from './reviews/reviews.module';

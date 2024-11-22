@@ -1,5 +1,5 @@
 import { timeStamp } from 'console';
-import { Review } from 'src/reviews/review.entitiy';
+import { Review } from 'src/reviews/review.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('users')

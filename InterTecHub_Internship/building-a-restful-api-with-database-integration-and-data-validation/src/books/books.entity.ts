@@ -1,4 +1,4 @@
-import { Review } from 'src/reviews/review.entitiy';
+import { Review } from 'src/reviews/review.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('books')
@@ -21,6 +21,6 @@ export class Book {
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
 
-  @OneToMany(()=>Review,(review) =>review.book)
-  reviews: Review[]
+  @OneToMany(() => Review, (review) => review.book)
+  reviews: Review[];
 }
