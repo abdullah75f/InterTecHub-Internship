@@ -20,7 +20,9 @@ export class BooksService {
     return await this.bookRepo.find();
   }
 
-  GetSingleBook() {}
+  async GetSingleBook(bookId: number) {
+    return await this.bookRepo.findOne({ where: { id: bookId } });
+  }
 
   async UpdateBook(bookId: number, updateBooks: UpdateBooksDto) {
     const book = await this.bookRepo.findOne({ where: { id: bookId } });

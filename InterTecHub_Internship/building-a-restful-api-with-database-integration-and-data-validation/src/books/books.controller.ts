@@ -26,8 +26,8 @@ export class BooksController {
   }
 
   @Get('/:bookId')
-  GetSingleBook() {
-    return this.booksService.GetSingleBook();
+  GetSingleBook(@Param('bookId') bookId: string) {
+    return this.booksService.GetSingleBook(parseInt(bookId));
   }
 
   @Put('/:bookId')
