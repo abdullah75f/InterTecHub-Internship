@@ -15,7 +15,9 @@ export class BooksService {
     return this.bookRepo.save(book);
   }
 
-  GetAllBooks() {}
+  async GetAllBooks() {
+    return await this.bookRepo.find();
+  }
 
   GetSingleBook() {}
 
