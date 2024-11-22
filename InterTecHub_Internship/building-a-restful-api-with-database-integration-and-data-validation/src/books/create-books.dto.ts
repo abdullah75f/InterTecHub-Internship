@@ -5,6 +5,8 @@ export class CreateBookDto {
   title: string;
 
   @IsInt()
+  @Min(1000000000000)
+  @Max(9999999999999)
   isbn: number;
 
   @IsString()
