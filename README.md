@@ -1,3 +1,9 @@
-#InterTecHub Internship
-This folder houses all the projects developed during my internship at InterTecHub. It includes various tasks, assignments, and code implementations that I have worked on throughout the internship period. The projects are organized to reflect the different stages and areas of focus during my time at InterTecHub.
+# InterTecHub Internship
 
+This folder contains all the projects developed during my internship at **InterTecHub**. The content is organized into various sections, each representing different tasks, assignments, and code implementations.
+
+- **Projects**: Code and tasks worked on throughout the internship.
+- **Assignments**: Specific challenges and learning exercises completed during the internship.
+- **Code Implementations**: Solutions and implementations to real-world problems encountered.
+
+The projects are structured to reflect different stages and areas of focus during my internship.
