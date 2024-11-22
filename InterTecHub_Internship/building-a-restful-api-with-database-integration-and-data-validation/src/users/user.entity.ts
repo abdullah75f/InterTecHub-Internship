@@ -1,9 +1,12 @@
 import { timeStamp } from 'console';
 import { Review } from 'src/reviews/review.entitiy';
-import { Column, Entity, OneToMany } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('users')
 export class User {
+  @PrimaryGeneratedColumn()
+  id: number;
+
   @Column()
   name: string;
   @Column()
