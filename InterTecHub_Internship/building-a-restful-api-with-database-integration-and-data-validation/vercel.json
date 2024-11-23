@@ -1,10 +1,5 @@
 {
   "version": 2,
-  "functions": {
-    "api/your-function.js": {
-      "runtime": "vercel-node"
-    }
-  },
   "builds": [
     {
       "src": "src/main.ts",
