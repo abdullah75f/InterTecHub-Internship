@@ -56,13 +56,13 @@ This Markdown file is styled for clarity, with sections separated by headers, co
 
 
 ```
-# 2. Books API
+# 📚 **Books API**
 
 This API is built using **NestJS** and provides endpoints to perform CRUD (Create, Read, Update, Delete) operations on **Books** and their associated **Reviews**.
 
-## Endpoints
+## 🚀 **Endpoints**
 
-### **1. Create a New Book**
+### 1. **Create a New Book**
 - **URL**: `/books`
 - **Method**: `POST`
 - **Request Body**:
@@ -86,6 +86,7 @@ POST /books
 URL: /books
 Method: GET
 Response: Returns an array of all books.
+Example:
 json
 Copy code
 [
