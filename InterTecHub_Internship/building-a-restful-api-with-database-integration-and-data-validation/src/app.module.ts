@@ -23,6 +23,7 @@ import { join } from 'path';
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
         url: configService.get<string>('DATABASE_URL'),
+        port: 5432,
         ssl: { rejectUnauthorized: false },
         autLoadEntities: true,
         entities: [User, Book, Review],
