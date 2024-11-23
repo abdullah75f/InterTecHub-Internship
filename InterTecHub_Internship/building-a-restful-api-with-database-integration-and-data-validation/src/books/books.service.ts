@@ -4,9 +4,9 @@ import { Book } from './books.entity';
 import { Repository } from 'typeorm';
 import { CreateBookDto } from './create-books.dto';
 import { UpdateBooksDto } from './update-books.dto';
-import { CreateReviewsDto } from 'src/reviews/create-reviews.dto';
-import { Review } from 'src/reviews/review.entity';
-import { User } from 'src/users/user.entity';
+import { CreateReviewsDto } from '../reviews/create-reviews.dto';
+import { Review } from '../reviews/review.entity';
+import { User } from '../users/user.entity';
 
 @Injectable()
 export class BooksService {

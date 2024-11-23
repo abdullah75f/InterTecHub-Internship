@@ -10,7 +10,7 @@ import {
 import { BooksService } from './books.service';
 import { CreateBookDto } from './create-books.dto';
 import { UpdateBooksDto } from './update-books.dto';
-import { CreateReviewsDto } from 'src/reviews/create-reviews.dto';
+import { CreateReviewsDto } from '../reviews/create-reviews.dto';
 
 @Controller('books')
 export class BooksController {
