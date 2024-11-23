@@ -18,18 +18,24 @@ const review_entity_1 = require("./reviews/review.entity");
 const books_entity_1 = require("./books/books.entity");
 const user_entity_1 = require("./users/user.entity");
 const reviews_module_1 = require("./reviews/reviews.module");
+const serve_static_1 = require("@nestjs/serve-static");
+const path_1 = require("path");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
+            serve_static_1.ServeStaticModule.forRoot({
+                rootPath: (0, path_1.join)(__dirname, '..', 'public'),
+            }),
             config_1.ConfigModule.forRoot({ isGlobal: true }),
             typeorm_1.TypeOrmModule.forRootAsync({
                 inject: [config_1.ConfigService],
                 useFactory: (configService) => ({
                     type: 'postgres',
                     url: configService.get('DATABASE_URL'),
+                    port: 5432,
                     ssl: { rejectUnauthorized: false },
                     autLoadEntities: true,
                     entities: [user_entity_1.User, books_entity_1.Book, review_entity_1.Review],
