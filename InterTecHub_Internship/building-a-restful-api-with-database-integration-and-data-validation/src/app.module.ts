@@ -27,9 +27,6 @@ import { join } from 'path';
         autLoadEntities: true,
         entities: [User, Book, Review],
         synchronize: true,
-        extra: {
-          connectionTimeoutMillis: 5000, // 5 seconds timeout
-        },
       }),
     }),
     UsersModule,
