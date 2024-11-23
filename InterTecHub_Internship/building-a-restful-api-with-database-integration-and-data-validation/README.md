@@ -2,7 +2,7 @@
 
 Follow the steps below to set up and run the application.
 
-## 1. Clone the Repository
+# 1. Clone the Repository
 
 First, clone the repository to your local machine:
 
@@ -56,8 +56,8 @@ This Markdown file is styled for clarity, with sections separated by headers, co
 
 
 ```
-## 1. APIs
-# Books API
+# 2. Books API
+
 
 This API is built using **NestJS** and provides endpoints to perform CRUD (Create, Read, Update, Delete) operations on **Books** and their associated **Reviews**.
 
