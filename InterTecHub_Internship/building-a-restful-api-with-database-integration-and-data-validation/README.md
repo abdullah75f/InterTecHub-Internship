@@ -56,6 +56,7 @@ This Markdown file is styled for clarity, with sections separated by headers, co
 
 
 ```
+
 # 📚 **Books API**
 
 This API is built using **NestJS** and provides endpoints to perform CRUD (Create, Read, Update, Delete) operations on **Books** and their associated **Reviews**.
@@ -63,6 +64,7 @@ This API is built using **NestJS** and provides endpoints to perform CRUD (Creat
 ## 🚀 **Endpoints**
 
 ### 1. **Create a New Book**
+
 - **URL**: `/books`
 - **Method**: `POST`
 - **Request Body**:
@@ -72,7 +74,9 @@ This API is built using **NestJS** and provides endpoints to perform CRUD (Creat
     "author": "string",
     "description": "string"
   }
-Response:
+  ```
+  **Response**:
+
 ```json
 {
   "id": 1,
@@ -80,10 +84,14 @@ Response:
   "author": "F. Scott Fitzgerald",
   "description": "A novel about the American dream."
 }
-### 2. Get All Books
+```
+
+### 2. **\*Get All Books**
+
 **URL**: /books
 **Method**:: GET
 **Request Body**:
+
 ```json
 [
   {
@@ -99,71 +107,88 @@ Response:
     "description": "A novel about a sea captain's obsession with a white whale."
   }
 ]
-### 3. ***Get a Single Book***
-URL: /books/:bookId
-Method: GET
-URL Params:
+```
+
+### 3. **_Get a Single Book_**
+
+**URL**: /books/:bookId
+**Method**: GET
+**URL Params**:
 bookId: ID of the book to retrieve.
 **Request Body**:
-```json
 
+```json
 {
   "id": 1,
   "title": "The Great Gatsby",
   "author": "F. Scott Fitzgerald",
   "description": "A novel about the American dream."
 }
-4. Update a Book
-URL: /books/:bookId
-Method: PUT
-URL Params:
+```
+
+### 4. Update a Book
+
+**URL**: /books/:bookId
+**Method**: PUT
+**URL Params**:
 bookId: ID of the book to update.
-Request Body:
-json
-Copy code
+**Request Body**:
+
+```json
 {
   "title": "Updated Book Title",
   "author": "Updated Author",
   "description": "Updated description"
 }
-Response:
-json
-Copy code
+```
+
+**Response**:
+
+```json
 {
   "id": 1,
   "title": "The Great Gatsby - Updated",
   "author": "F. Scott Fitzgerald",
   "description": "An updated description."
 }
-5. Delete a Book
-URL: /books/:bookId
-Method: DELETE
-URL Params:
+```
+
+### 5. Delete a Book
+
+**URL**: /books/:bookId
+**Method**: DELETE
+**URL Params**:
 bookId: ID of the book to delete.
-Response:
-json
-Copy code
+**Response**:
+
+```json
 {
   "message": "Book deleted successfully"
 }
-6. Create a Review for a Book
-URL: /books/:bookId/reviews
-Method: POST
-URL Params:
+```
+
+### 6. Create a Review for a Book
+
+**URL**: /books/:bookId/reviews
+**Method**: POST
+**URL Params**:
 bookId: ID of the book to which the review will be added.
-Request Body:
-json
-Copy code
+**Request Body**:
+
+```json
 {
   "review": "Amazing book! A must-read for everyone.",
   "rating": 5
 }
-Response:
-json
-Copy code
+```
+
+**Response**:
+
+```json
 {
   "id": 1,
   "bookId": 1,
   "review": "Incredible book, highly recommended!",
   "rating": 5
 }
+```
