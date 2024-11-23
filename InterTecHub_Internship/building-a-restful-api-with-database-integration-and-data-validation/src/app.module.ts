@@ -9,9 +9,14 @@ import { Review } from './reviews/review.entity';
 import { Book } from './books/books.entity';
 import { User } from './users/user.entity';
 import { ReviewsModule } from './reviews/reviews.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'), // Path to static files
+    }),
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
