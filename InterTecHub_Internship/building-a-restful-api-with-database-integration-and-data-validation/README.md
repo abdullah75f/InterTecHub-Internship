@@ -73,8 +73,7 @@ This API is built using **NestJS** and provides endpoints to perform CRUD (Creat
     "description": "string"
   }
 Response:
-json
-Copy code
+```json
 {
   "id": 1,
   "title": "The Great Gatsby",
@@ -86,7 +85,6 @@ Copy code
 **Method**:: GET
 **Request Body**:
 ```json
-
 [
   {
     "id": 1,
@@ -101,14 +99,14 @@ Copy code
     "description": "A novel about a sea captain's obsession with a white whale."
   }
 ]
-3. Get a Single Book
+### 3. ***Get a Single Book***
 URL: /books/:bookId
 Method: GET
 URL Params:
 bookId: ID of the book to retrieve.
-Response:
-json
-Copy code
+**Request Body**:
+```json
+
 {
   "id": 1,
   "title": "The Great Gatsby",
