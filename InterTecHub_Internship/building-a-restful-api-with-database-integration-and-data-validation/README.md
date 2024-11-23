@@ -81,12 +81,12 @@ Copy code
   "author": "F. Scott Fitzgerald",
   "description": "A novel about the American dream."
 }
-2. Get All Books
-URL: /books
-Method: GET
-Response:
-json
-Copy code
+### 2. Get All Books
+**URL**: /books
+**Method**:: GET
+**Request Body**:
+```json
+
 [
   {
     "id": 1,
