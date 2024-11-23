@@ -40,6 +40,12 @@ export class BooksService {
       if (!books || books.length === 0) {
         throw new NotFoundException('No books found');
       }
+
+      return {
+        statusCode: 200,
+        message: 'Books retrieved successfully',
+        data: books,
+      };
     } catch (err) {
       console.error('Error retrieving books:', err);
       throw err;
@@ -48,15 +54,16 @@ export class BooksService {
 
   async GetSingleBook(bookId: number) {
     try {
-      const book = this.bookRepo.findOne({ where: { id: bookId } });
+      const book = await this.bookRepo.findOne({ where: { id: bookId } });
+
       if (!book) {
-        throw new NotFoundException('No books found');
+        throw new NotFoundException('No book is found');
       }
 
       return {
         statusCode: 200,
         message: 'Books retrieved successfully',
-        data: this.GetAllBooks,
+        data: book,
       };
     } catch (err) {
       console.error('Error retrieving books:', err);
@@ -65,13 +72,35 @@ export class BooksService {
   }
 
   async UpdateBook(bookId: number, updateBooks: UpdateBooksDto) {
-    const book = await this.bookRepo.findOne({ where: { id: bookId } });
-    Object.assign(book, updateBooks);
-    return this.bookRepo.save(book);
+    try {
+      const book = await this.bookRepo.findOne({ where: { id: bookId } });
+
+      if (!book) {
+        throw new NotFoundException('No book is found');
+      }
+      Object.assign(book, updateBooks);
+      return this.bookRepo.save(book);
+    } catch (err) {
+      console.error('Error updating books:', err);
+      throw err;
+    }
   }
 
   async DeleteBook(bookId: number) {
-    return await this.bookRepo.delete(bookId);
+    try {
+      const result = await this.bookRepo.delete({ id: bookId });
+      if (result.affected === 0) {
+        throw new NotFoundException(`Book with ID ${bookId} not found`);
+      }
+
+      return {
+        statusCode: 200,
+        message: `Book with ID ${bookId} deleted successfully`,
+      };
+    } catch (err) {
+      console.error('Error deleting book:', err);
+      throw err;
+    }
   }
 
   async CreateReview(bookId: number, reviews: CreateReviewsDto) {

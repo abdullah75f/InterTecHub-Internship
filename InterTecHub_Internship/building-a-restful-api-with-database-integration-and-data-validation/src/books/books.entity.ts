@@ -21,6 +21,6 @@ export class Book {
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
 
-  @OneToMany(() => Review, (review) => review.book)
+  @OneToMany(() => Review, (review) => review.book, { onDelete: 'CASCADE' })
   reviews: Review[];
 }
