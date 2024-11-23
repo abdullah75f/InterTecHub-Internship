@@ -14,7 +14,7 @@ export class CreateBookDto {
 
   @IsNotEmpty()
   @Matches(/^\d{10}(\d{3})?$/, {
-    message: 'ISBN must be either 10 or 13 digits.',
+    message: 'ISBN must be either 10 or 13 digits string.',
   })
   isbn: string;
 
