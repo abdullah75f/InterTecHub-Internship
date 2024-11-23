@@ -35,11 +35,33 @@ export class BooksService {
   }
 
   async GetAllBooks() {
-    return await this.bookRepo.find();
+    try {
+      const books = await this.bookRepo.find();
+      if (!books || books.length === 0) {
+        throw new NotFoundException('No books found');
+      }
+    } catch (err) {
+      console.error('Error retrieving books:', err);
+      throw err;
+    }
   }
 
   async GetSingleBook(bookId: number) {
-    return await this.bookRepo.findOne({ where: { id: bookId } });
+    try {
+      const book = this.bookRepo.findOne({ where: { id: bookId } });
+      if (!book) {
+        throw new NotFoundException('No books found');
+      }
+
+      return {
+        statusCode: 200,
+        message: 'Books retrieved successfully',
+        data: this.GetAllBooks,
+      };
+    } catch (err) {
+      console.error('Error retrieving books:', err);
+      throw err;
+    }
   }
 
   async UpdateBook(bookId: number, updateBooks: UpdateBooksDto) {

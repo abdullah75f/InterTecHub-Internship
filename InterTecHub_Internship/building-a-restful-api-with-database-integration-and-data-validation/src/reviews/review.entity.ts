@@ -22,11 +22,11 @@ export class Review {
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAT: Date;
 
-  @ManyToOne(() => Book, (book) => book.reviews)
+  @ManyToOne(() => Book, (book) => book.reviews, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'bookId' })
   book: Book;
 
-  @ManyToOne(() => User, (user) => user.reviews)
+  @ManyToOne(() => User, (user) => user.reviews, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'userId' })
   user: User;
 }
