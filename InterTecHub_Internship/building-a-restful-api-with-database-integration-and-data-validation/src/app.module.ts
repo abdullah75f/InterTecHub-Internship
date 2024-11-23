@@ -22,10 +22,14 @@ import { join } from 'path';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
-        url: configService.get<string>('DATABASE_URL'),
+        host: 'localhost',
+        username: configService.get<string>('abdullah75farid'), // Set your username
+        password: configService.get<string>('my_p@ssw0rd'), // Set your password
+        database: configService.get<string>('books'),
+        // url: configService.get<string>('DATABASE_URL'),
         port: 5432,
-        ssl: { rejectUnauthorized: false },
-        autLoadEntities: true,
+        // ssl: { rejectUnauthorized: false },
+        // autLoadEntities: true,
         entities: [User, Book, Review],
         synchronize: true,
       }),
