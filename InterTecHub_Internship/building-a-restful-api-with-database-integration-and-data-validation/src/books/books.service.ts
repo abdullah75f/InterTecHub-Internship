@@ -16,9 +16,22 @@ export class BooksService {
     @InjectRepository(User) private readonly userRepo: Repository<User>,
   ) {}
 
-  CreateBook(bookDto: CreateBookDto) {
-    const book = this.bookRepo.create(bookDto);
-    return this.bookRepo.save(book);
+  async CreateBook(bookDto: CreateBookDto) {
+    try {
+      const book = this.bookRepo.create(bookDto);
+      const storedBook = await this.bookRepo.save(book);
+
+      return {
+        statusCode: 201,
+        message: 'Book created successfully',
+        data: storedBook,
+      };
+    } catch (err) {
+      return {
+        statusCode: 400,
+        message: err.message,
+      };
+    }
   }
 
   async GetAllBooks() {
@@ -50,15 +63,14 @@ export class BooksService {
       user = this.userRepo.create({ name: reviews.name });
       user = await this.userRepo.save(user);
     }
-   
+
     const review = this.reviewRepo.create({
-        book,
-        user,
-        rating: reviews.rating,
-        comment: reviews.comment,
-      });
-  
-     
-      return await this.reviewRepo.save(review);
-    }
+      book,
+      user,
+      rating: reviews.rating,
+      comment: reviews.comment,
+    });
+
+    return await this.reviewRepo.save(review);
+  }
 }
