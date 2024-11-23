@@ -29,7 +29,7 @@ export class BooksService {
     } catch (err) {
       return {
         statusCode: 400,
-        message: err.message,
+        message: (err as any).message,
       };
     }
   }
