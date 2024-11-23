@@ -72,12 +72,11 @@ This API is built using **NestJS** and provides endpoints to perform CRUD (Creat
     "author": "string",
     "description": "string"
   }
-Response: Returns the created book object.
-Example:
-bash
+Response:
+json
 Copy code
-POST /books
 {
+  "id": 1,
   "title": "The Great Gatsby",
   "author": "F. Scott Fitzgerald",
   "description": "A novel about the American dream."
@@ -85,8 +84,7 @@ POST /books
 2. Get All Books
 URL: /books
 Method: GET
-Response: Returns an array of all books.
-Example:
+Response:
 json
 Copy code
 [
@@ -108,11 +106,7 @@ URL: /books/:bookId
 Method: GET
 URL Params:
 bookId: ID of the book to retrieve.
-Response: Returns the details of the book with the given bookId.
-Example:
-bash
-Copy code
-GET /books/1
+Response:
 json
 Copy code
 {
@@ -134,12 +128,11 @@ Copy code
   "author": "Updated Author",
   "description": "Updated description"
 }
-Response: Returns the updated book object.
-Example:
-bash
+Response:
+json
 Copy code
-PUT /books/1
 {
+  "id": 1,
   "title": "The Great Gatsby - Updated",
   "author": "F. Scott Fitzgerald",
   "description": "An updated description."
@@ -149,11 +142,12 @@ URL: /books/:bookId
 Method: DELETE
 URL Params:
 bookId: ID of the book to delete.
-Response: Returns a success message or status.
-Example:
-bash
+Response:
+json
 Copy code
-DELETE /books/1
+{
+  "message": "Book deleted successfully"
+}
 6. Create a Review for a Book
 URL: /books/:bookId/reviews
 Method: POST
@@ -166,12 +160,12 @@ Copy code
   "review": "Amazing book! A must-read for everyone.",
   "rating": 5
 }
-Response: Returns the created review object.
-Example:
-bash
+Response:
+json
 Copy code
-POST /books/1/reviews
 {
+  "id": 1,
+  "bookId": 1,
   "review": "Incredible book, highly recommended!",
   "rating": 5
 }
