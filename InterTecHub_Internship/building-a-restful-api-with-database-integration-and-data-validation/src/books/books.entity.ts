@@ -1,4 +1,4 @@
-import { Review } from "../reviews/review.entity";
+import { Review } from '../reviews/review.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('books')
@@ -21,6 +21,9 @@ export class Book {
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
 
-  @OneToMany(() => Review, (review) => review.book, { onDelete: 'CASCADE' })
+  @OneToMany(() => Review, (review) => review.book, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
   reviews: Review[];
 }

@@ -10,7 +10,6 @@ import {
 import { BooksService } from './books.service';
 import { CreateBookDto } from './create-books.dto';
 import { UpdateBooksDto } from './update-books.dto';
-import { CreateReviewsDto } from '../reviews/create-reviews.dto';
 
 @Controller('books')
 export class BooksController {
@@ -39,13 +38,5 @@ export class BooksController {
   @Delete('/:bookId')
   DeleteBook(@Param('bookId') bookId: string) {
     return this.booksService.DeleteBook(parseInt(bookId));
-  }
-
-  @Post('/:bookId/reviews')
-  CreateReview(
-    @Param('bookId') bookId: string,
-    @Body() body: CreateReviewsDto,
-  ) {
-    return this.booksService.CreateReview(parseInt(bookId), body);
   }
 }
