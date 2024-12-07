@@ -14,6 +14,11 @@ export class UsersController {
     return this.authService.signup(body.email, body.password, body.name);
   }
 
+  @Post('/login')
+  async login(@Body() body: Pick<CreateUserDto, 'email' | 'password'>) {
+    return this.authService.login(body.email, body.password);
+  }
+
   @Get()
   findAllUsers(@Query('email') email: string) {
     return this.usersService.find(email);
