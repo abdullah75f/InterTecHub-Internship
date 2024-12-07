@@ -7,6 +7,7 @@ import { UpdateBooksDto } from './update-books.dto';
 import { CreateReviewsDto } from '../reviews/create-reviews.dto';
 import { Review } from '../reviews/review.entity';
 import { User } from '../users/user.entity';
+import { Favorite } from './favorite.entity';
 
 @Injectable()
 export class BooksService {
@@ -14,6 +15,8 @@ export class BooksService {
     @InjectRepository(Book) private readonly bookRepo: Repository<Book>,
     @InjectRepository(Review) private readonly reviewRepo: Repository<Review>,
     @InjectRepository(User) private readonly userRepo: Repository<User>,
+    @InjectRepository(Favorite)
+    private readonly favoriteRepo: Repository<Favorite>,
   ) {}
 
   async CreateBook(bookDto: CreateBookDto, user: User) {
@@ -35,7 +38,7 @@ export class BooksService {
       });
 
       const storedBook = await this.bookRepo.save(book);
-      
+
       return {
         statusCode: 201,
         message: 'Book created successfully',
@@ -117,5 +120,25 @@ export class BooksService {
       console.error('Error deleting book:', err);
       throw err;
     }
+  }
+
+  async addFavorite(userId: number, bookId: number) {
+    const user = await this.userRepo.findOne({ where: { id: userId } });
+    const book = await this.bookRepo.findOne({ where: { id: bookId } });
+
+    if (!user || !book) {
+      throw new Error('User or Book not found');
+    }
+
+    const existingFavorite = await this.favoriteRepo.findOne({
+      where: { user: { id: userId }, book: { id: bookId } },
+    });
+
+    if (existingFavorite) {
+      throw new Error('Book is already in favorites');
+    }
+
+    const favorite = this.favoriteRepo.create({ user, book });
+    return this.favoriteRepo.save(favorite);
   }
 }

@@ -17,11 +17,13 @@ import { RolesGuard } from 'src/users/roles.guards';
 import { Roles } from 'src/users/roles';
 import { Role } from 'src/users/role.enum';
 import { User } from 'src/users/user.entity';
+import { log } from 'console';
 
 @Controller('books')
 export class BooksController {
   constructor(private booksService: BooksService) {}
 
+  //Done
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.User)
   @Post()
@@ -30,6 +32,7 @@ export class BooksController {
     return this.booksService.CreateBook(body, user);
   }
 
+  //Done
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.Admin)
   @Get()
@@ -55,5 +58,13 @@ export class BooksController {
   @Delete('/:bookId')
   DeleteBook(@Param('bookId') bookId: string) {
     return this.booksService.DeleteBook(parseInt(bookId));
+  }
+
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.User)
+  @Post('/favorite')
+  async addFavorite(@Body('bookId') bookId: number, @Request() req) {
+    const userId = req.user.userId;
+    return this.booksService.addFavorite(userId, bookId);
   }
 }

@@ -1,6 +1,13 @@
 import { User } from 'src/users/user.entity';
 import { Review } from '../reviews/review.entity';
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Favorite } from './favorite.entity';
 
 @Entity('books')
 export class Book {
@@ -27,6 +34,9 @@ export class Book {
     onDelete: 'CASCADE',
   })
   reviews: Review[];
+
+  @OneToMany(() => Favorite, (favorite) => favorite.book, { cascade: true })
+  favorites?: Favorite[];
 
   @ManyToOne(() => User, (user) => user.books, { onDelete: 'CASCADE' })
   user: User;

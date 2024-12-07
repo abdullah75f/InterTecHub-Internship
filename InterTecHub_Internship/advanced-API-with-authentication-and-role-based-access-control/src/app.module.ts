@@ -11,6 +11,7 @@ import { User } from './users/user.entity';
 import { ReviewsModule } from './reviews/reviews.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { Favorite } from './books/favorite.entity';
 
 @Module({
   imports: [
@@ -23,7 +24,7 @@ import { join } from 'path';
 
         ssl: { rejectUnauthorized: false },
         autLoadEntities: true,
-        entities: [User, Book, Review],
+        entities: [User, Book, Review,Favorite],
         synchronize: true,
       }),
     }),

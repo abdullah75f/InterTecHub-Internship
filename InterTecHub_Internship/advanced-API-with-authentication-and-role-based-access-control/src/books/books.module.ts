@@ -5,10 +5,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Book } from './books.entity';
 import { ReviewsModule } from '../reviews/reviews.module';
 import { UsersModule } from '../users/users.module';
+import { Favorite } from './favorite.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Book]),
+    TypeOrmModule.forFeature([Book,Favorite]),
     forwardRef(() => ReviewsModule),
     forwardRef(() => UsersModule),
   ],
