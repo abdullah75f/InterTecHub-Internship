@@ -16,17 +16,33 @@ export class BooksService {
     @InjectRepository(User) private readonly userRepo: Repository<User>,
   ) {}
 
-  async CreateBook(bookDto: CreateBookDto) {
+  async CreateBook(bookDto: CreateBookDto, user: User) {
     try {
-      const book = this.bookRepo.create(bookDto);
-      const storedBook = await this.bookRepo.save(book);
+      const existingUser = await this.userRepo.findOne({
+        where: { id: user.id },
+      });
 
+      if (!existingUser) {
+        return {
+          statusCode: 400,
+          message: 'User does not exist.',
+        };
+      }
+
+      const book = this.bookRepo.create({
+        ...bookDto,
+        user: existingUser,
+      });
+
+      const storedBook = await this.bookRepo.save(book);
+      
       return {
         statusCode: 201,
         message: 'Book created successfully',
         data: storedBook,
       };
     } catch (err) {
+      console.error('Error creating book:', err);
       return {
         statusCode: 400,
         message: (err as any).message,

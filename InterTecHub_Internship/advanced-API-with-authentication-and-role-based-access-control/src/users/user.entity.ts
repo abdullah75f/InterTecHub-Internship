@@ -23,8 +23,8 @@ export class User {
   createdAt: Date;
 
   @OneToMany(() => Review, (review) => review.user)
-  reviews: Review[];
+  reviews?: Review[];
 
   @OneToMany(() => Book, (book) => book.user)
-  books: Book[];
+  books?: Book[];
 }

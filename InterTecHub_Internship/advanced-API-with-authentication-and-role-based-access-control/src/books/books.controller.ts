@@ -7,6 +7,7 @@ import {
   Post,
   Put,
   UseGuards,
+  Request,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './create-books.dto';
@@ -15,15 +16,18 @@ import { JwtAuthGuard } from 'src/users/jwt-auth.guard';
 import { RolesGuard } from 'src/users/roles.guards';
 import { Roles } from 'src/users/roles';
 import { Role } from 'src/users/role.enum';
+import { User } from 'src/users/user.entity';
 
 @Controller('books')
 export class BooksController {
   constructor(private booksService: BooksService) {}
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.User)
   @Post()
-  CreateBook(@Body() body: CreateBookDto) {
-    return this.booksService.CreateBook(body);
+  CreateBook(@Body() body: CreateBookDto, @Request() req) {
+    const user: User = req.user;
+    return this.booksService.CreateBook(body, user);
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
