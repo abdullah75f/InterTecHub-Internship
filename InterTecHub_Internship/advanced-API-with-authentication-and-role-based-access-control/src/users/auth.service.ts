@@ -5,6 +5,8 @@ import { UsersService } from './users.service';
 export class AuthService {
   constructor(private readonly usersService: UsersService) {}
 
-  async signup(email: string, password: string) {}
-  async login() {}
+  // async signup(email: string, password: string) {
+  //   const existingUser =
+  // }
+  // async login() {}
 }

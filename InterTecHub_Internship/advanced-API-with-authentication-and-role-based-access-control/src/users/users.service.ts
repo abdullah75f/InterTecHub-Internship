@@ -11,4 +11,8 @@ export class UsersService {
     const user = this.usersRepo.create({ email, password, name });
     return this.usersRepo.save(user);
   }
+
+  async find(email: string) {
+    return this.usersRepo.find({ where: { email } });
+  }
 }
