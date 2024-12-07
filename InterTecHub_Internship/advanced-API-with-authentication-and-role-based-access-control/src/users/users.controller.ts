@@ -4,5 +4,5 @@ import { CreateUserDto } from './create-user.dto';
 @Controller('users')
 export class UsersController {
   @Post()
-  createUser(@Body() user: CreateUserDto) {}
+  createUser(@Body() body: CreateUserDto) {}
 }
