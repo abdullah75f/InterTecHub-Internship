@@ -27,6 +27,9 @@ import { join } from 'path';
         synchronize: true,
       }),
     }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     UsersModule,
     BooksModule,
     ReviewsModule,

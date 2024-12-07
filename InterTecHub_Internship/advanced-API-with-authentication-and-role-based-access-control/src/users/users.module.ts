@@ -9,6 +9,7 @@ import { AuthService } from './auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { JwtStrategy } from './jwt.Strategy';
 
 @Module({
   imports: [
@@ -25,12 +26,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     TypeOrmModule.forFeature([User]),
     forwardRef(() => BooksModule),
     forwardRef(() => ReviewsModule),
-    JwtModule.register({
-      secret: 'your-secret-key', // Replace with a secure key
-      signOptions: { expiresIn: '1h' }, // Token expiration time
-    }),
   ],
-  providers: [UsersService, AuthService],
+  providers: [UsersService, AuthService, JwtStrategy],
   controllers: [UsersController],
   exports: [TypeOrmModule, UsersService],
 })

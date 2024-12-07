@@ -29,7 +29,7 @@ export class AuthService {
     const salt = randomBytes(8).toString('hex');
     const hashedPassword = await bcrypt.hash(password + salt, 10);
 
-    const result = salt + '.' + hashedPassword.toString();
+    const result = `${salt}:${hashedPassword}`;
 
     const user = await this.usersService.createUser(email, result, name, role);
     const token = this.jwtService.sign({
@@ -46,7 +46,7 @@ export class AuthService {
     if (!user) {
       throw new NotFoundException('user not found');
     }
-    const [salt, storedHash] = user.password.split('.');
+    const [salt, storedHash] = user.password.split(':');
 
     const isPasswordValid = await bcrypt.compare(password + salt, storedHash);
     if (!isPasswordValid) {
