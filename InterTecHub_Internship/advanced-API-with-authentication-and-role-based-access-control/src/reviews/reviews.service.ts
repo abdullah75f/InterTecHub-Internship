@@ -1,7 +1,11 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Book } from 'src/books/books.entity';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { Review } from './review.entity';
 import { User } from 'src/users/user.entity';
 import { CreateReviewsDto } from './create-reviews.dto';
@@ -14,17 +18,20 @@ export class ReviewsService {
     @InjectRepository(User) private readonly userRepo: Repository<User>,
   ) {}
 
-  async CreateReview(bookId: number, reviews: CreateReviewsDto) {
+  async CreateReview(
+    bookId: number,
+    reviews: CreateReviewsDto,
+    userId: number,
+  ) {
     const book = await this.bookRepo.findOne({ where: { id: bookId } });
 
     if (!book) {
       throw new NotFoundException('Book not found');
     }
 
-    let user = await this.userRepo.findOne({ where: { name: reviews.name } });
+    let user = await this.userRepo.findOne({ where: { id: userId } });
     if (!user) {
-      user = this.userRepo.create({ name: reviews.name });
-      user = await this.userRepo.save(user);
+      throw new UnauthorizedException('User not found or unauthorized');
     }
 
     const review = this.reviewRepo.create({
@@ -55,5 +62,33 @@ export class ReviewsService {
       console.error('Error retrieving reviews:', err);
       throw err;
     }
+  }
+
+  async GetBookRecommendations(user: User) {
+    // Get all reviews written by the user
+    const userReviews = await this.reviewRepo.find({
+      where: { user: { id: user.id } },
+      relations: ['book'],
+    });
+
+    if (!userReviews || userReviews.length === 0) {
+      throw new NotFoundException('No reviews found for this user');
+    }
+
+    // Extract authors or any other criteria from the user's past reviews to make recommendations
+    const authors = userReviews.map((review) => review.book.author); // Assuming author is a key for recommendation
+
+    // Recommend books based on the authors the user has reviewed
+    const recommendedBooks = await this.bookRepo.find({
+      where: {
+        author: In(authors), // Match books by these authors
+      },
+    });
+
+    if (!recommendedBooks || recommendedBooks.length === 0) {
+      throw new NotFoundException('No recommendations found');
+    }
+
+    return recommendedBooks;
   }
 }

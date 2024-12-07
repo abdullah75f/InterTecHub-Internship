@@ -40,26 +40,28 @@ export class BooksController {
     return this.booksService.GetAllBooks();
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.User)
   @Get('/:bookId')
   GetSingleBook(@Param('bookId') bookId: string) {
     return this.booksService.GetSingleBook(parseInt(bookId));
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.Admin)
+  @Roles(Role.User)
   @Put('/:bookId')
   UpdateBook(@Param('bookId') bookId: string, @Body() body: UpdateBooksDto) {
     return this.booksService.UpdateBook(parseInt(bookId), body);
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.Admin)
+  @Roles(Role.User)
   @Delete('/:bookId')
   DeleteBook(@Param('bookId') bookId: string) {
     return this.booksService.DeleteBook(parseInt(bookId));
   }
 
+  //Done
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.User)
   @Post('/favorite')
