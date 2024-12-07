@@ -24,8 +24,13 @@ export class UsersController {
     return this.authService.login(body.email, body.password);
   }
 
-  @Get()
-  findAllUsers(@Query('email') email: string) {
+  @Get('/user')
+  findUser(@Query('email') email: string) {
     return this.usersService.find(email);
+  }
+
+  @Get()
+  findAllUsers() {
+    return this.usersService.findAllUsers();
   }
 }

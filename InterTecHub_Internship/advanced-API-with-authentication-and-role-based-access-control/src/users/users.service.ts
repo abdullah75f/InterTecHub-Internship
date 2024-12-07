@@ -20,4 +20,8 @@ export class UsersService {
   async find(email: string) {
     return this.usersRepo.find({ where: { email } });
   }
+
+  async findAllUsers() {
+    return this.usersRepo.find();
+  }
 }
