@@ -14,6 +14,9 @@ export class User {
 
   @Column()
   name: string;
+  
+  @Column()
+  role: 'admin' | 'user';
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;

@@ -6,12 +6,21 @@ import {
 import { UsersService } from './users.service';
 import { randomBytes } from 'crypto';
 import * as bcrypt from 'bcrypt';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly jwtService: JwtService,
+  ) {}
 
-  async signup(email: string, password: string, name: string) {
+  async signup(
+    email: string,
+    password: string,
+    name: string,
+    role: 'admin' | 'user' = 'user',
+  ) {
     const existingUser = await this.usersService.find(email);
     if (existingUser.length) {
       throw new BadRequestException('Email is in use');
@@ -22,8 +31,14 @@ export class AuthService {
 
     const result = salt + '.' + hashedPassword.toString();
 
-    const user = await this.usersService.createUser(email, result, name);
-    return user;
+    const user = await this.usersService.createUser(email, result, name, role);
+    const token = this.jwtService.sign({
+      id: user.id,
+      email: user.email,
+      role: user.role,
+    });
+
+    return { user, token };
   }
 
   async login(email: string, password: string) {
@@ -37,6 +52,11 @@ export class AuthService {
     if (!isPasswordValid) {
       throw new BadRequestException('Password is not correct');
     }
-    return user;
+    const token = this.jwtService.sign({
+      id: user.id,
+      email: user.email,
+      role: user.role,
+    });
+    return { user, token };
   }
 }

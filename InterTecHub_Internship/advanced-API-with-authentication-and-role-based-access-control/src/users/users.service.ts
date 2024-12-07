@@ -7,8 +7,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 export class UsersService {
   constructor(@InjectRepository(User) private usersRepo: Repository<User>) {}
 
-  async createUser(email: string, password: string, name: string) {
-    const user = this.usersRepo.create({ email, password, name });
+  async createUser(
+    email: string,
+    password: string,
+    name: string,
+    role: 'admin' | 'user' = 'user',
+  ) {
+    const user = this.usersRepo.create({ email, password, name, role });
     return this.usersRepo.save(user);
   }
 
