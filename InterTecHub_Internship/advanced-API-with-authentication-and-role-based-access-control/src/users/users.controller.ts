@@ -3,6 +3,6 @@ import { CreateUserDto } from './create-user.dto';
 
 @Controller('users')
 export class UsersController {
-  @Post()
+  @Post('/signup')
   createUser(@Body() body: CreateUserDto) {}
 }
