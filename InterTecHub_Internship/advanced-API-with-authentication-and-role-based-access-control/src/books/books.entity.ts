@@ -1,5 +1,6 @@
+import { User } from 'src/users/user.entity';
 import { Review } from '../reviews/review.entity';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('books')
 export class Book {
@@ -26,4 +27,7 @@ export class Book {
     onDelete: 'CASCADE',
   })
   reviews: Review[];
+
+  @ManyToOne(() => User, (user) => user.books, { onDelete: 'CASCADE' })
+  user: User;
 }
