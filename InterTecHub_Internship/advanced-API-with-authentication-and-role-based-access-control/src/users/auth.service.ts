@@ -14,9 +14,9 @@ export class AuthService {
     }
 
     const salt = randomBytes(8).toString('hex');
-    const hashedPassword = (await bcrypt.hash(password, salt, 32)) as Buffer;
+    const hashedPassword = await bcrypt.hash(password + salt, 10);
 
-    const result = salt + '.' + hashedPassword.toString('hex');
+    const result = salt + '.' + hashedPassword.toString();
 
     const user = await this.usersService.createUser(email, result, name);
     return user;
