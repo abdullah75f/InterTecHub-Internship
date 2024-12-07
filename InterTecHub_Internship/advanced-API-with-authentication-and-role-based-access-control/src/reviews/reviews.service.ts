@@ -65,7 +65,6 @@ export class ReviewsService {
   }
 
   async GetBookRecommendations(user: User) {
-    // Get all reviews written by the user
     const userReviews = await this.reviewRepo.find({
       where: { user: { id: user.id } },
       relations: ['book'],
@@ -75,10 +74,7 @@ export class ReviewsService {
       throw new NotFoundException('No reviews found for this user');
     }
 
-    // Extract authors or any other criteria from the user's past reviews to make recommendations
-    const authors = userReviews.map((review) => review.book.author); // Assuming author is a key for recommendation
-
-    // Recommend books based on the authors the user has reviewed
+    const authors = userReviews.map((review) => review.book.author);
     const recommendedBooks = await this.bookRepo.find({
       where: {
         author: In(authors), // Match books by these authors
