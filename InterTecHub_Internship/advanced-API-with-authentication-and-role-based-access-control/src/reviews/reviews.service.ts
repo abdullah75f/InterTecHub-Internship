@@ -78,7 +78,7 @@ export class ReviewsService {
     const authors = userReviews.map((review) => review.book.author);
     const recommendedBooks = await this.bookRepo.find({
       where: {
-        author: In(authors), // Match books by these authors
+        author: In(authors),
       },
     });
 

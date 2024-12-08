@@ -41,11 +41,12 @@ export class ReviewsController {
     return this.reviewsService.GetAllReviews(userId);
   }
 
+  // This endpoint retrieves book recommendations for the authenticated user based on the authors of the books they have reviewed.
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.User)
   @Get('recommendations')
   async GetRecommendations(@Request() req) {
-    const user: User = req.user; // Get the logged-in user
+    const user: User = req.user;
     return await this.reviewsService.GetBookRecommendations(user);
   }
 }
