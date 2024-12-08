@@ -71,7 +71,7 @@ export class BooksController {
     return this.booksService.DeleteBook(parseInt(bookId), user);
   }
 
-  //Done
+  // This End-point selects a favorite-books of the user
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.User)
   @Post('/favorite')
