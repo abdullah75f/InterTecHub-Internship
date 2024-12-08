@@ -115,17 +115,21 @@ export class BooksService {
       throw err;
     }
   }
-  async UpdateBook(bookId: number, updateBooks: UpdateBooksDto) {
+
+  async UpdateBook(bookId: number, updateBooks: UpdateBooksDto, user: User) {
     try {
-      const book = await this.bookRepo.findOne({ where: { id: bookId } });
+      const book = await this.bookRepo.findOne({
+        where: { id: bookId, user: { id: user.id } },
+      });
 
       if (!book) {
-        throw new NotFoundException('No book is found');
+        throw new NotFoundException('No book found or you do not have access to update this book');
       }
+
       Object.assign(book, updateBooks);
       return this.bookRepo.save(book);
     } catch (err) {
-      console.error('Error updating books:', err);
+      console.error('Error updating book:', err);
       throw err;
     }
   }

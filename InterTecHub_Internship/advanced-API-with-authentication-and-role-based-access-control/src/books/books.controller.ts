@@ -49,13 +49,20 @@ export class BooksController {
     return this.booksService.GetSingleBook(parseInt(bookId), user);
   }
 
+  // This End-point updates a single book if the  user that created it is trying to update.
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.User)
   @Put('/:bookId')
-  UpdateBook(@Param('bookId') bookId: string, @Body() body: UpdateBooksDto) {
-    return this.booksService.UpdateBook(parseInt(bookId), body);
+  UpdateBook(
+    @Param('bookId') bookId: string,
+    @Body() body: UpdateBooksDto,
+    @Request() req: any,
+  ) {
+    const user: User = req.user;
+    return this.booksService.UpdateBook(parseInt(bookId), body, user);
   }
 
+  // This End-point deletes a single book if the  user that created it is trying to delete.
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.User)
   @Delete('/:bookId')
