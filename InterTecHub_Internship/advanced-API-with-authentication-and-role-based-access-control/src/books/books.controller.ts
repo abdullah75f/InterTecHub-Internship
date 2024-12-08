@@ -23,7 +23,7 @@ import { log } from 'console';
 export class BooksController {
   constructor(private booksService: BooksService) {}
 
-  //Done
+  //This End-point creates a new book , if the User is only Authenticated and have the role of "user"
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.User)
   @Post()
@@ -32,7 +32,7 @@ export class BooksController {
     return this.booksService.CreateBook(body, user);
   }
 
-  //Done
+  //This End-point Lists all the books created, if the User is only Authenticated and have the role of "admin"
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.Admin)
   @Get()
