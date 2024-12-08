@@ -41,6 +41,66 @@ Enjoy building your project! 🎉
 
 ```
 
+# 📚 **Users Auth API**
+
+This API is built using **NestJS** and provides endpoints to perform signup and login operations on **Users**.
+
+
+## 🚀 **Endpoints**
+
+### 1. **Create a New User**
+
+- **To create a user from the browser**:
+  open console on inspect developer tool and run
+
+```json
+fetch("https://intertechub-internship-7.onrender.com/books", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+  "title": "To Kill a Mockingbird",
+  "isbn": "9780061120084",
+  "author": "Harper Lee",
+  "publishedYear": 1960
+}),
+})
+.then(response => response.json())
+.then(data => console.log("Response:", data))
+.catch(error => console.error("Error:", error));
+```
+
+- **URL**: `/books`
+- **Method**: `POST`
+- **Request Body**:
+  ```json
+  {
+    "title": "Pride and Prejudice",
+    "isbn": "9780141439518",
+    "author": "Jane Austen",
+    "publishedYear": 1813
+  }
+  ```
+  **Response**:
+
+```json
+{
+  "statusCode": 201,
+  "message": "Book created successfully",
+  "data": {
+    "title": "Pride and Prejudice",
+    "isbn": "9780141439518",
+    "author": "Jane Austen",
+    "publishedYear": 1813,
+    "id": 29,
+    "createdAt": "2024-11-24T19:08:51.408Z"
+  }
+}
+```
+
+
+
 # 📚 **Books API**
 
 This API is built using **NestJS** and provides endpoints to perform CRUD (Create, Read, Update, Delete) operations on **Books** and their associated **Reviews**.
