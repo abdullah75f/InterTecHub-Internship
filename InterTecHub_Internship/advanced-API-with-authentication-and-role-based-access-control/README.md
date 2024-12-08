@@ -45,7 +45,6 @@ Enjoy building your project! 🎉
 
 This API is built using **NestJS** and provides endpoints to perform signup and login operations on **Users**.
 
-
 ## 🚀 **Endpoints**
 
 ### 1. **Create a New User**
@@ -54,52 +53,95 @@ This API is built using **NestJS** and provides endpoints to perform signup and 
   open console on inspect developer tool and run
 
 ```json
-fetch("https://intertechub-internship-7.onrender.com/books", {
+fetch("https://your-api-endpoint.com/auth/signup", {
     method: "POST",
     headers: {
         "Content-Type": "application/json",
     },
     body: JSON.stringify({
-  "title": "To Kill a Mockingbird",
-  "isbn": "9780061120084",
-  "author": "Harper Lee",
-  "publishedYear": 1960
-}),
+        "email": "john.doe@example.com",
+        "password": "securePassword123",
+        "name": "John Doe",
+        "role": "user"
+    }),
+    credentials: 'include'
 })
 .then(response => response.json())
 .then(data => console.log("Response:", data))
 .catch(error => console.error("Error:", error));
 ```
 
-- **URL**: `/books`
+- **URL**: `/auth/signup`
 - **Method**: `POST`
 - **Request Body**:
   ```json
   {
-    "title": "Pride and Prejudice",
-    "isbn": "9780141439518",
-    "author": "Jane Austen",
-    "publishedYear": 1813
+    "email": "john.doe@example.com",
+    "password": "securePassword123",
+    "name": "John Doe",
+    "role": "user" // or 'admin'
   }
   ```
   **Response**:
 
 ```json
 {
-  "statusCode": 201,
-  "message": "Book created successfully",
-  "data": {
-    "title": "Pride and Prejudice",
-    "isbn": "9780141439518",
-    "author": "Jane Austen",
-    "publishedYear": 1813,
-    "id": 29,
+  "user": {
+    "id": 1,
+    "email": "john.doe@example.com",
+    "name": "John Doe",
+    "role": "user",
     "createdAt": "2024-11-24T19:08:51.408Z"
-  }
+  },
+  "token": "your_jwt_token_here"
 }
 ```
 
+### 2. **Login a User**
 
+- **To login a user from the browser**:
+  open console on inspect developer tool and run
+
+```json
+fetch("https://your-api-endpoint.com/auth/login", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+        "email": "john.doe@example.com",
+        "password": "securePassword123"
+    }),
+    credentials: 'include'  // This is important for sending cookies or tokens
+})
+.then(response => response.json())
+.then(data => console.log("Response:", data))
+.catch(error => console.error("Error:", error));
+```
+
+- **URL**: `/auth/login`
+- **Method**: `POST`
+- **Request Body**:
+  ```json
+  {
+    "email": "john.doe@example.com",
+    "password": "securePassword123"
+  }
+  ```
+  **Response**:
+
+```json
+{
+  "user": {
+    "id": 1,
+    "email": "john.doe@example.com",
+    "name": "John Doe",
+    "role": "user",
+    "createdAt": "2024-11-24T19:08:51.408Z"
+  },
+  "token": "your_jwt_token_here"
+}
+```
 
 # 📚 **Books API**
 
