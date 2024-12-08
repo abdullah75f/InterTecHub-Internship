@@ -22,7 +22,6 @@ npm install
 Create a .env file in the root of your project and configure your database connection:
 
 .env
-
 DB_HOST=localhost
 DB_PORT=5432
 DB_USERNAME=your-username
@@ -33,20 +32,11 @@ DB_NAME=your-database-name
 You can run the application in either development or production mode.
 
 Development Mode (for local development):
-
-
 npm run start:dev
+
 Production Mode (for production deployment):
-
-
 npm run start:prod
 Enjoy building your project! 🎉
-
-
-This Markdown file is styled for clarity, with sections separated by headers, code blocks highlighted, and steps clearly outlined for easy reading and execution.
-
-
-
 
 
 ```
