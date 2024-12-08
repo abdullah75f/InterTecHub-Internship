@@ -71,25 +71,50 @@ export class BooksService {
     }
   }
 
-  async GetSingleBook(bookId: number) {
+  async GetSingleBook(bookId: number, user: User) {
     try {
-      const book = await this.bookRepo.findOne({ where: { id: bookId } });
+      const book = await this.bookRepo.findOne({
+        where: { id: bookId, user: { id: user.id } },
+        relations: ['user'],
+      });
 
       if (!book) {
-        throw new NotFoundException('No book is found');
+        throw new NotFoundException(
+          'No book found or you do not have access to this book',
+        );
+      }
+
+      return {
+        statusCode: 200,
+        message: 'Book retrieved successfully',
+        data: book,
+      };
+    } catch (err) {
+      console.error('Error retrieving book:', err);
+      throw err;
+    }
+  }
+  async GetBooksByUser(userId: number) {
+    try {
+      const books = await this.bookRepo.find({
+        where: { user: { id: userId } },
+        relations: ['user'],
+      });
+
+      if (!books || books.length === 0) {
+        throw new NotFoundException('No books found for this user');
       }
 
       return {
         statusCode: 200,
         message: 'Books retrieved successfully',
-        data: book,
+        data: books,
       };
     } catch (err) {
-      console.error('Error retrieving books:', err);
+      console.error('Error retrieving books by user:', err);
       throw err;
     }
   }
-
   async UpdateBook(bookId: number, updateBooks: UpdateBooksDto) {
     try {
       const book = await this.bookRepo.findOne({ where: { id: bookId } });

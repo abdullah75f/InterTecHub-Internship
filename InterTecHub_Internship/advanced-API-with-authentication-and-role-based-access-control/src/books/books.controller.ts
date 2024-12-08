@@ -40,11 +40,13 @@ export class BooksController {
     return this.booksService.GetAllBooks();
   }
 
+  // This End-point gets a single book to the same user that created it .
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.User)
   @Get('/:bookId')
-  GetSingleBook(@Param('bookId') bookId: string) {
-    return this.booksService.GetSingleBook(parseInt(bookId));
+  GetSingleBook(@Param('bookId') bookId: string, @Request() req) {
+    const user: User = req.user;
+    return this.booksService.GetSingleBook(parseInt(bookId), user);
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
