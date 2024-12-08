@@ -19,6 +19,7 @@ import { User } from 'src/users/user.entity';
 export class ReviewsController {
   constructor(private readonly reviewsService: ReviewsService) {}
 
+  // This End-point creates a review on a book if the user is Authorized
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.User)
   @Post('/:bookId')
@@ -27,15 +28,17 @@ export class ReviewsController {
     @Body() body: CreateReviewsDto,
     @Request() req,
   ) {
-    const userId = req.user.userId;
+    const userId = req.user.id;
     return this.reviewsService.CreateReview(parseInt(bookId), body, userId);
   }
 
+  // This End-point gets all reviews an Authorized user created
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.User)
   @Get()
-  GetAllBooksReviews() {
-    return this.reviewsService.GetAllReviews();
+  GetAllBooksReviews(@Request() req) {
+    const userId = req.user.id;
+    return this.reviewsService.GetAllReviews(userId);
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)

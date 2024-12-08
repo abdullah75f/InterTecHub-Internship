@@ -29,14 +29,14 @@ export class ReviewsService {
       throw new NotFoundException('Book not found');
     }
 
-    let user = await this.userRepo.findOne({ where: { id: userId } });
+    const user = await this.userRepo.findOne({ where: { id: userId } });
     if (!user) {
       throw new UnauthorizedException('User not found or unauthorized');
     }
 
     const review = this.reviewRepo.create({
-      book,
-      user,
+      book: { id: bookId },
+      user: { id: userId },
       rating: reviews.rating,
       comment: reviews.comment,
     });
@@ -44,10 +44,11 @@ export class ReviewsService {
     return await this.reviewRepo.save(review);
   }
 
-  async GetAllReviews() {
+  async GetAllReviews(userId: number) {
     try {
       const reviews = await this.reviewRepo.find({
-        relations: ['user'],
+        where: { user: { id: userId } },
+        relations: ['user', 'book'],
       });
       if (!reviews || reviews.length === 0) {
         throw new NotFoundException('No reviews found');
