@@ -11,8 +11,10 @@ Follow the steps below to set up and run the application.
 First, clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/your-repository-url
-cd your-project-name
+git clone https://github.com/abdullah75f/InterTecHub-Internship.git
+cd InterTecHub_Internship
+cd advanced-API-with-authentication-and-role-based-access-control
+
 2. Install Dependencies
 Next, install the required dependencies:
 npm install
