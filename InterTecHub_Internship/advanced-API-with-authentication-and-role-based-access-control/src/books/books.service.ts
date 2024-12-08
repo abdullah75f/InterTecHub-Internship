@@ -123,7 +123,9 @@ export class BooksService {
       });
 
       if (!book) {
-        throw new NotFoundException('No book found or you do not have access to update this book');
+        throw new NotFoundException(
+          'No book found or you do not have access to update this book',
+        );
       }
 
       Object.assign(book, updateBooks);
@@ -141,7 +143,9 @@ export class BooksService {
       });
 
       if (!book) {
-        throw new NotFoundException('No book found or you do not have access to delete this book');
+        throw new NotFoundException(
+          'No book found or you do not have access to delete this book',
+        );
       }
 
       await this.bookRepo.delete({ id: bookId });
@@ -156,7 +160,7 @@ export class BooksService {
     }
   }
 
-  async addFavorite(userId: number, bookId: number) {
+  async AddFavorite(userId: number, bookId: number) {
     const user = await this.userRepo.findOne({ where: { id: userId } });
     const book = await this.bookRepo.findOne({ where: { id: bookId } });
 

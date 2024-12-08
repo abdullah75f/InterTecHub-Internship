@@ -75,8 +75,8 @@ export class BooksController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.User)
   @Post('/favorite')
-  async addFavorite(@Body('bookId') bookId: number, @Request() req) {
+  async AddFavorite(@Body('bookId') bookId: number, @Request() req) {
     const userId = req.user.userId;
-    return this.booksService.addFavorite(userId, bookId);
+    return this.booksService.AddFavorite(userId, bookId);
   }
 }
