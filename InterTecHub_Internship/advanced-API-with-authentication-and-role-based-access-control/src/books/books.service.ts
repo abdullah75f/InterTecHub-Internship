@@ -134,12 +134,17 @@ export class BooksService {
     }
   }
 
-  async DeleteBook(bookId: number) {
+  async DeleteBook(bookId: number, user: User) {
     try {
-      const result = await this.bookRepo.delete({ id: bookId });
-      if (result.affected === 0) {
-        throw new NotFoundException(`Book with ID ${bookId} not found`);
+      const book = await this.bookRepo.findOne({
+        where: { id: bookId, user: { id: user.id } },
+      });
+
+      if (!book) {
+        throw new NotFoundException('No book found or you do not have access to delete this book');
       }
+
+      await this.bookRepo.delete({ id: bookId });
 
       return {
         statusCode: 200,

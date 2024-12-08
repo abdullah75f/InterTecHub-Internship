@@ -66,8 +66,9 @@ export class BooksController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.User)
   @Delete('/:bookId')
-  DeleteBook(@Param('bookId') bookId: string) {
-    return this.booksService.DeleteBook(parseInt(bookId));
+  DeleteBook(@Param('bookId') bookId: string, @Request() req: any) {
+    const user: User = req.user;
+    return this.booksService.DeleteBook(parseInt(bookId), user);
   }
 
   //Done
