@@ -1,7 +1,10 @@
 # InterTecHub
 
 <span style="font-size:larger;">Check out - <a href="https://intertechub-internship.onrender.com">https://intertechub-internship.onrender.com</a></span>
-<span style="font-size:larger;">Check out Swagger Documentation - <a href="https://intertechub-internship.onrender.com">https://intertechub-internship.onrender.com/api-docs</a></span>
+
+<br>
+
+<span style="font-size:larger;">Check out Swagger Documentation - <a href="https://intertechub-internship.onrender.com/api-docs">https://intertechub-internship.onrender.com/api-docs</a></span>
 
 # 🛠️ **Setting Up Your Project Locally**
 
