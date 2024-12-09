@@ -18,6 +18,11 @@ import { Roles } from 'src/users/roles';
 import { Role } from 'src/users/role.enum';
 import { User } from 'src/users/user.entity';
 import { log } from 'console';
+import {
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiOperation,
+} from '@nestjs/swagger';
 
 @Controller('books')
 export class BooksController {
@@ -27,6 +32,9 @@ export class BooksController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.User)
   @Post()
+  @ApiOperation({ summary: 'creates a new book' })
+  @ApiOkResponse({ description: 'Book is created  successfully' })
+  @ApiNotFoundResponse({ description: 'Invalid data provided' })
   CreateBook(@Body() body: CreateBookDto, @Request() req) {
     const user: User = req.user;
     return this.booksService.CreateBook(body, user);
@@ -36,6 +44,9 @@ export class BooksController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.Admin)
   @Get()
+  @ApiOperation({ summary: 'Fetch a list of books' })
+  @ApiOkResponse({ description: 'List of books fetched  successfully' })
+  @ApiNotFoundResponse({ description: 'Books Not Found' })
   GetAllBooks() {
     return this.booksService.GetAllBooks();
   }
@@ -44,6 +55,9 @@ export class BooksController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.User)
   @Get('/:bookId')
+  @ApiOperation({ summary: 'Fetch a single of books' })
+  @ApiOkResponse({ description: 'a book is fetched  successfully' })
+  @ApiNotFoundResponse({ description: 'Book Not Found' })
   GetSingleBook(@Param('bookId') bookId: string, @Request() req) {
     const user: User = req.user;
     return this.booksService.GetSingleBook(parseInt(bookId), user);
@@ -53,6 +67,9 @@ export class BooksController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.User)
   @Put('/:bookId')
+  @ApiOperation({ summary: 'Updates a book' })
+  @ApiOkResponse({ description: 'Book is updated  successfully' })
+  @ApiNotFoundResponse({ description: 'Invalid data provided' })
   UpdateBook(
     @Param('bookId') bookId: string,
     @Body() body: UpdateBooksDto,
@@ -66,6 +83,8 @@ export class BooksController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.User)
   @Delete('/:bookId')
+  @ApiOperation({ summary: 'deletes a book' })
+  @ApiOkResponse({ description: 'Book is deleted  successfully' })
   DeleteBook(@Param('bookId') bookId: string, @Request() req: any) {
     const user: User = req.user;
     return this.booksService.DeleteBook(parseInt(bookId), user);
@@ -75,6 +94,9 @@ export class BooksController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.User)
   @Post('/favorite')
+  @ApiOperation({ summary: 'a favorite-books of the user is selected' })
+  @ApiOkResponse({ description: 'favorite is created  successfully' })
+  @ApiNotFoundResponse({ description: 'Invalid data provided' })
   async AddFavorite(@Body('bookId') bookId: number, @Request() req) {
     const userId = req.user.userId;
     return this.booksService.AddFavorite(userId, bookId);
