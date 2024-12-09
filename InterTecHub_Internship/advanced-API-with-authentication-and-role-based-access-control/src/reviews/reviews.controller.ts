@@ -14,7 +14,17 @@ import { RolesGuard } from 'src/users/roles.guards';
 import { Roles } from 'src/users/roles';
 import { Role } from 'src/users/role.enum';
 import { User } from 'src/users/user.entity';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiOkResponse,
+  ApiOperation,
+  ApiParam,
+  ApiTags,
+} from '@nestjs/swagger';
 
+@ApiTags('reviews')
+@ApiBearerAuth()
 @Controller('reviews')
 export class ReviewsController {
   constructor(private readonly reviewsService: ReviewsService) {}
@@ -23,6 +33,10 @@ export class ReviewsController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.User)
   @Post('/:bookId')
+  @ApiOperation({ summary: 'Creates a review for a book' })
+  @ApiOkResponse({ description: 'Review is created successfully' })
+  @ApiParam({ name: 'bookId', type: String, description: 'ID of the book' })
+  @ApiBody({ type: CreateReviewsDto })
   CreateReview(
     @Param('bookId') bookId: string,
     @Body() body: CreateReviewsDto,
@@ -36,6 +50,8 @@ export class ReviewsController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.User)
   @Get()
+  @ApiOperation({ summary: 'Fetch all reviews created by the user' })
+  @ApiOkResponse({ description: 'List of reviews fetched successfully' })
   GetAllBooksReviews(@Request() req) {
     const userId = req.user.id;
     return this.reviewsService.GetAllReviews(userId);
@@ -45,6 +61,10 @@ export class ReviewsController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.User)
   @Get('recommendations')
+  @ApiOperation({ summary: 'Fetch book recommendations based on reviews' })
+  @ApiOkResponse({
+    description: 'List of recommended books fetched successfully',
+  })
   async GetRecommendations(@Request() req) {
     const user: User = req.user;
     return await this.reviewsService.GetBookRecommendations(user);

@@ -8,17 +8,24 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.enableCors();
+  app.enableCors({
+    origin: 'https://intertechub-internship.onrender.com',
+    methods: 'GET,POST,PUT,DELETE,OPTIONS',
+    allowedHeaders: 'Content-Type, Authorization',
+    credentials: true,
+  });
 
   const config = new DocumentBuilder()
     .setTitle('Book Store')
     .setDescription('The Book Store API description')
     .setVersion('1.0.0')
+    .addTag('books')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
 
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('api-docs', app, document);
 
   // Use global validation pipe
   app.useGlobalPipes(

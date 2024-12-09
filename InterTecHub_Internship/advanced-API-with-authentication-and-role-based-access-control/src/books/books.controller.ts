@@ -22,8 +22,14 @@ import {
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
+  ApiBearerAuth,
+  ApiTags,
+  ApiBody,
+  ApiParam,
 } from '@nestjs/swagger';
 
+@ApiTags('books')
+@ApiBearerAuth()
 @Controller('books')
 export class BooksController {
   constructor(private booksService: BooksService) {}
@@ -32,9 +38,10 @@ export class BooksController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.User)
   @Post()
-  @ApiOperation({ summary: 'creates a new book' })
-  @ApiOkResponse({ description: 'Book is created  successfully' })
+  @ApiOperation({ summary: 'Creates a new book' })
+  @ApiOkResponse({ description: 'Book is created successfully' })
   @ApiNotFoundResponse({ description: 'Invalid data provided' })
+  @ApiBody({ type: CreateBookDto })
   CreateBook(@Body() body: CreateBookDto, @Request() req) {
     const user: User = req.user;
     return this.booksService.CreateBook(body, user);
@@ -45,7 +52,7 @@ export class BooksController {
   @Roles(Role.Admin)
   @Get()
   @ApiOperation({ summary: 'Fetch a list of books' })
-  @ApiOkResponse({ description: 'List of books fetched  successfully' })
+  @ApiOkResponse({ description: 'List of books fetched successfully' })
   @ApiNotFoundResponse({ description: 'Books Not Found' })
   GetAllBooks() {
     return this.booksService.GetAllBooks();
@@ -55,21 +62,24 @@ export class BooksController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.User)
   @Get('/:bookId')
-  @ApiOperation({ summary: 'Fetch a single of books' })
-  @ApiOkResponse({ description: 'a book is fetched  successfully' })
+  @ApiOperation({ summary: 'Fetch a single book' })
+  @ApiOkResponse({ description: 'A book is fetched successfully' })
   @ApiNotFoundResponse({ description: 'Book Not Found' })
+  @ApiParam({ name: 'bookId', type: String })
   GetSingleBook(@Param('bookId') bookId: string, @Request() req) {
     const user: User = req.user;
     return this.booksService.GetSingleBook(parseInt(bookId), user);
   }
 
-  // This End-point updates a single book if the  user that created it is trying to update.
+  // This End-point updates a single book if the user that created it is trying to update.
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.User)
   @Put('/:bookId')
   @ApiOperation({ summary: 'Updates a book' })
-  @ApiOkResponse({ description: 'Book is updated  successfully' })
+  @ApiOkResponse({ description: 'Book is updated successfully' })
   @ApiNotFoundResponse({ description: 'Invalid data provided' })
+  @ApiParam({ name: 'bookId', type: String })
+  @ApiBody({ type: UpdateBooksDto })
   UpdateBook(
     @Param('bookId') bookId: string,
     @Body() body: UpdateBooksDto,
@@ -79,12 +89,13 @@ export class BooksController {
     return this.booksService.UpdateBook(parseInt(bookId), body, user);
   }
 
-  // This End-point deletes a single book if the  user that created it is trying to delete.
+  // This End-point deletes a single book if the user that created it is trying to delete.
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.User)
   @Delete('/:bookId')
-  @ApiOperation({ summary: 'deletes a book' })
-  @ApiOkResponse({ description: 'Book is deleted  successfully' })
+  @ApiOperation({ summary: 'Deletes a book' })
+  @ApiOkResponse({ description: 'Book is deleted successfully' })
+  @ApiParam({ name: 'bookId', type: String })
   DeleteBook(@Param('bookId') bookId: string, @Request() req: any) {
     const user: User = req.user;
     return this.booksService.DeleteBook(parseInt(bookId), user);
@@ -94,9 +105,10 @@ export class BooksController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.User)
   @Post('/favorite')
-  @ApiOperation({ summary: 'a favorite-books of the user is selected' })
-  @ApiOkResponse({ description: 'favorite is created  successfully' })
+  @ApiOperation({ summary: 'Selects a favorite book of the user' })
+  @ApiOkResponse({ description: 'Favorite is created successfully' })
   @ApiNotFoundResponse({ description: 'Invalid data provided' })
+  @ApiBody({ schema: { type: 'object', properties: { bookId: { type: 'number' } } } })
   async AddFavorite(@Body('bookId') bookId: number, @Request() req) {
     const userId = req.user.userId;
     return this.booksService.AddFavorite(userId, bookId);
