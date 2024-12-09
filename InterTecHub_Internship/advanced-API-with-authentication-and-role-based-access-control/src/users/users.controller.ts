@@ -43,7 +43,7 @@ export class UsersController {
   @Post('/login')
   @ApiOperation({ summary: 'Login a user and get a JWT token' })
   @ApiBody({
-    type: LoginDto,
+    type: LoginDto, // Use the LoginDto to specify expected body parameters
   })
   @ApiResponse({
     status: 200,
